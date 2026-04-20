@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {View} from 'react-native';
-import Svg, {Circle, Line, Polygon, Text} from 'react-native-svg';
+import Svg, {Circle, Line, Polygon, Text, TSpan} from 'react-native-svg';
 import {getGradientColors} from './getGradientColors';
 
 export type RadarData = {
@@ -184,7 +184,16 @@ export default ({
               fontSize={fontSize}
               fill={color}
               fontFamily={fontFamily}>
-              {r.label}
+              {r.label.split('\n').map((t, index) => {
+                return (
+                  <TSpan
+                    key={`${t}-${index}`}
+                    x={edgePoint[0]}
+                    y={symmetricY + index * fontSize}>
+                    {t}
+                  </TSpan>
+                );
+              })}
             </Text>
           );
         })}
